@@ -20,8 +20,8 @@
             width: 50%;
             text-align: center;
             margin-top:30px;
-            border:3px solid white;
-            background-color:skyblue;
+            border:3px solid white ;
+       
         }
         </style>
   </head>
@@ -48,8 +48,8 @@
                 <h2 class="h2_font">Add Catagorey</h2>
                 <form action="{{url('/add_catagorey')}}" method="POST">
                 @csrf
-                    <input type="text" name="catagorey" placeholder="write catagorey name">
-                    <input type="submit" class="btn btn-primary" name="submit value= Add Catagorey">
+                    <input class="input_color" type="text" name="catagorey" placeholder="write catagorey name">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Add Catagorey">
                      </form>
                     
             </div>

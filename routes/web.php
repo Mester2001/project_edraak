@@ -22,9 +22,8 @@ Route::middleware(['auth:sanctum','verified'])->get('/dashboard',function(){
   return view('dashboard');
 })->name('dashboard');
 
-Route::get('/logout', [HomeController::class,'redirect']);
 
-Route::get('/redirect',[HomeController::class,'redirect']);
+Route::get('/redirect',[HomeController::class,'redirect'])->middleware('auth','verified');
 
 Route::get('/view_catagorey',[AdminController::class,'view_catagorey']);
 
@@ -57,3 +56,14 @@ Route::get('/cash_order',[HomeController::class,'cash_order']);
 Route::get('/stripe/{totalprice}',[HomeController::class,'stripe']);
 
 Route::post('stripe/{totalprice}',[HomeController::class, 'stripePost'])->name('stripe.post');
+
+Route::get('/show_order',[HomeController::class,'show_order']);
+
+Route::get('/order',[AdminController::class,'order']);
+
+Route::get('/delivered/{id}',[AdminController::class,'delivered']);
+
+Route::get('/cancel_order/{id}',[HomeController::class,'cancel_order']);
+
+Route::get('/product_search',[HomeController::class,'product_search']);
+

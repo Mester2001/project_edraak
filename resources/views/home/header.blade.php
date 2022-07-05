@@ -30,10 +30,23 @@
                            <a class="nav-link" href="contact.html">Contact</a>
                         </li>
 
+
                         <li class="nav-item">
                            <a class="nav-link" href="{{url('show_cart')}}">cart</a>
                         </li>
 
+
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{url('show_order')}}">order</a>
+                        </li>
+
+                         <li class="nav-item">
+                           <a class="btn btn-primary" id="logincss" href="{{ route('login') }}">login</a>
+                        </li>
+
+                        <li class="nav-item">
+                           <a class="btn btn-success" href="{{ route('register') }}">register</a>
+                        </li>
                            <div>
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
