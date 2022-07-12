@@ -50,7 +50,7 @@
         @endif
         <div class="div_center">
                 <h1  class="font_size">update product </h1>
-                <form action="{{url('/update_product_confirm',$product->id)}}" method="post" enctype="multipart/form-data"> 
+                <form action="{{url('/update_product_confirm',$product->id)}}" method="POST" enctype="multipart/form-data"> 
                 @csrf
                 <div class="div_design">
                 <lable>product Title</lable>
@@ -66,13 +66,13 @@
         </div>
         
         <div class="div_design">
-                <lable>discount_price</lable>
-                <input class="text_color" type="number" name="discount_price" placeholder="Wite a dis_price" required=""  value="{{$product->discount_price}}">
+                <lable>discount price</lable>
+                <input class="text_color" type="number" name="dis_price" placeholder="Wite a discount_price"   value="{{$product->discount_price}}">
         </div>
 
                 <div class="div_design">
                 <lable>product quantity</lable>
-                <input class="text_color" type="number" min="0" name="Quantity" placeholder="Wite a Quantity" required=""  value="{{$product->Quantity}}">
+                <input class="text_color" type="number" min="0" name="Quantity" placeholder="Wite a Quantity" required=""  value="{{$product->quantity}}">
         </div>
 
         <div class="div_design">
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="div_design">
-                <lable> current product Image Here : </lable>
+                <lable> current product Image : </lable>
                 <div class="div_design" enctype="multipart/form-data"> 
                 <img style="margin:auto;" height="100" width="100" src="/product/{{$product->image}}">
                 </div>
@@ -102,10 +102,10 @@
 
 
                     <div class="div_design">
-                <lable> change product Image Here : </lable>
-                <input class="text_color" type="file" name="image"  enctype="multipart/form-data">
+                <lable> change product Image : </lable>
+                <input class="text_color" type="file" name="image">
         </div>
-
+                <div class="div_design">
                 <input type="submit" value=" update product" class="btn btn-primary">
         </div>
         </form>

@@ -9,24 +9,10 @@ use App\Models\product;
 use App\Models\cart;
 use App\Models\order;
 use seesion;
-use stripe;
+use Stripe;
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+ 
     public function index()
     {   $product=product::paginate(10);
         return view('home.userpage',compact('product'));
@@ -36,7 +22,7 @@ class HomeController extends Controller
         $usertype=Auth::user()->usertype;
         if($usertype=='1')
         {
-        return view ('Admin');
+        return view ('Admin.home');
     }
     else
     {   $product=product::paginate(10);
@@ -265,7 +251,7 @@ public function cancel_order($id)
     public function product_search(Request $request)
     {
         $search_text=$request->search;
-        $product=product::where('title','LIKE','%$search_text%')->paginate(10);
+        $product=product::where('title','LIKE',"%$search_text%")->paginate(10);
         return view('home.userpage',compact('product'));
     }
 

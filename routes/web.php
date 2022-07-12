@@ -67,3 +67,7 @@ Route::get('/cancel_order/{id}',[HomeController::class,'cancel_order']);
 
 Route::get('/product_search',[HomeController::class,'product_search']);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

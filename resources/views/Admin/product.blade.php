@@ -76,8 +76,8 @@
 
         <div class="div_design">
 
-                <lable>discount_price</lable>
-                <input class="text_color" type="number" name="discount_price" placeholder="Wite a dis_price" required="">
+                <lable>discount price</lable>
+                <input class="text_color" type="number" name="dis_price" placeholder="Wite a dis_price" required="">
         </div>
 
 

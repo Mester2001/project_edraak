@@ -91,4 +91,4 @@
          {!!$product->withQueryString()->links('pagination::bootstrap-5')!!}
          </span>
       </div>
-      </section>
+      </section> 

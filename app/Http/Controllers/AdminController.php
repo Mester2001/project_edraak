@@ -10,14 +10,25 @@ use App\Models\product;
 
 use App\Models\order;
 
+use Illuminate\support\Facades\Auth;
+
 class AdminController extends Controller
 {
+
     public function view_catagorey()
     {
-        $data=catagorey::all();
+        if(Auth::id())
+        {
+            $data=catagorey::all();
 
-    return view('Admin.catagorey',compact('data'));
-    }
+            return view('Admin.catagorey',compact('data'));
+           
+        }
+        else
+        {
+            return redirect('login');
+        }
+        }
 
 
     public function add_catagorey(Request $request)
@@ -103,7 +114,9 @@ class AdminController extends Controller
 
                             $product->price=$request->price;
 
-                            $product->discount_price=$request->discount_price;
+                            $product->discount_price=$request->dis_price;
+
+                            $product->catagorey=$request->catagorey;
 
                             $product->quantity=$request->quantity;
 
