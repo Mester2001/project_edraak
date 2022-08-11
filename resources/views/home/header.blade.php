@@ -27,7 +27,7 @@
                         <li class="nav-item">
                            <a class="nav-link" href=""></a>
                         </li>
-                        
+                        @if(Auth::user()==null)
                         <li class="nav-item">
                            <a class="btn btn-primary" id="logincss" href="{{ route('login') }}">login</a>
                         </li>
@@ -35,7 +35,14 @@
                         <li class="nav-item">
                            <a class="btn btn-success" href="{{ route('register') }}">register</a>
                         </li>
-                        
+                        @else   
+                           <li class="nav-item"> 
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                 <button class="btn btn-danger" type="submit"> {{ __('Log Out') }}  </button>
+                              </form>
+                           </li>
+                        @endif
                            <div>
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
@@ -43,23 +50,6 @@
                            </button>
                         </form>
                               </div>
-                        @if(Route::has('login'))
-                   
-                        @auth
-                        <li class="nav-item">
-                           <div>
-                        <x-app-layout>
-                  
-                                    {{ __('Log Out') }}
-                          
-                    </x-app-layout>
-</div>
-                        @else
-                                @endauth     
-                         @endif
-                  
-                                      
-                     </li>
                   </div>
                </nav>
             </div>

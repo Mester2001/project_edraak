@@ -62,9 +62,11 @@ class AdminController extends Controller
 
             $product->description=$request->description;
 
-            $product->quantity=$request->quantity;
+            $product->quantity=$request->Quantity;
 
-            $product->discount_price=$request->discount_price;
+            $product->price=$request->price;
+
+            $product->discount_price=$request->dis_price;
             
             $product->catagorey=$request->catagorey;
 
@@ -92,7 +94,7 @@ class AdminController extends Controller
         {
                 $product=product::find($id);
                 $product->delete();
-                return redirect()->back()->with('message','product deleted successfully');
+                return redirect()->back()->with('message',200,'product deleted successfully');
         }
 
 
@@ -118,7 +120,7 @@ class AdminController extends Controller
 
                             $product->catagorey=$request->catagorey;
 
-                            $product->quantity=$request->quantity;
+                            $product->quantity=$request->Quantity;
 
                             $image=$request->image;
 
@@ -135,7 +137,7 @@ class AdminController extends Controller
                             
                             $product->save();
 
-                            return redirect()->back('message','product updated successfully');
+                            return redirect()->back();
 
                     }
 

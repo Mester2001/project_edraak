@@ -18,11 +18,10 @@
                         @auth
                         <li class="nav-item">
                 
-                        <x-app-layout>
-                  
+                        <x-app-layout> 
                                     {{ __('Log Out') }}
                           
-                    </x-app-layout>
+                    </x-app-layout> 
 </li>
                 </div>
                         @else

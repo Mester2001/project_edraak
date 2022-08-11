@@ -54,33 +54,17 @@
                      </div>
                      <div class="detail-box">
                         <h5>
-                           ${{$products->title}}
+                           {{$products->title}}
                         </h5>
 
-                     @if($products->discount_price!=null)
-
-                       <h6 style="color:red">
-                       $ discount price
-                       <br>
+                       <h6 style="color:blue">
                           ${{$products->discount_price}}
                         </h6>
                         
 
-                        <h6 style="text-decoration:line-through;color:blue">
-                        
-                        <br>
+                        <h6 style="text-decoration: line-through;color:red">
                          $  {{$products->price}}
                         </h6>
-
-                           @else
-
-                     
-                        <h6 class="color:blue">
-                           price
-                           <br>
-                           {{$products->price}}
-                        </h6>
-                        @endif
                      </div>
                   </div>
                </div>
