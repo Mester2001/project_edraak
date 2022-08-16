@@ -105,7 +105,7 @@
                     <div class="div_design">
 
                 <lable>product Image Here : </lable>
-                <input type="file" name="file" >
+                <input type="file" name="image" >
                     <div>
                 <input type="submit" value=" Add product" class="btn btn-primary">
         </div>

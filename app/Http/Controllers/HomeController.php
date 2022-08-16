@@ -37,7 +37,7 @@ class HomeController extends Controller
 
 public function add_cart(Request $request,$id)
 {
-    if(Auth::id())
+    if(Auth::id()) {
 
     $user=Auth::user();
     $product=product::find($id);
@@ -59,15 +59,17 @@ else
 }
     $cart->image=$product->image;
     $cart->product_id=$product->id;
+
     $cart->quantity=$request->quantity;
     $cart->save();
     return redirect()->back();
 
 {
-
+}
 
     return redirect('login');
-}
+
+    }
 }
 
 public function show_cart()
@@ -100,6 +102,7 @@ public function remove_cart($id)
         $user=Auth::user();
         $userid=$user->id;
        $data=cart::where('user_id','=',$userid)->get();
+
         foreach($data as $data)
         {
             $order=new order;
@@ -114,9 +117,6 @@ public function remove_cart($id)
 
             $order->user_id=$data->user_id;
 
-
-
-
             $order->product_title=$data->product_title;
 
             $order->price=$data->price;
@@ -125,7 +125,7 @@ public function remove_cart($id)
 
             $order->image=$data->image;
 
-            $order->product_id=$data->product_id;
+            $order->product_id=$data->Product_id;
 
             $order->payment_status='cash on delivery';
 

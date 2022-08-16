@@ -94,6 +94,8 @@
                 <div class="div_design">
                 <lable> current product Image : </lable>
                 <div class="div_design" enctype="multipart/form-data"> 
+                <img class="img_size" src="/product/{{$product->image}}">
+
                 <img style="margin:auto;" height="100" width="100" src="/product/{{$product->image}}">
                 </div>
 

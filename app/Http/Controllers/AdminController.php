@@ -11,6 +11,7 @@ use App\Models\product;
 use App\Models\order;
 
 use Illuminate\support\Facades\Auth;
+use Log;
 
 class AdminController extends Controller
 {
@@ -72,9 +73,9 @@ class AdminController extends Controller
 
                 $image=$request->image;
 
+                Log::info([$request->all()]);
                 if($image){
-                    $imagename=time().'.'.$imagename->getClientOriginalExtension();
-    
+                    $imagename=time().'.'.$image->getClientOriginalExtension();
                 $request->image->move('product',$imagename);
     
                 $product->image=$imagename;
