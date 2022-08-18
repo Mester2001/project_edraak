@@ -4,7 +4,6 @@
     <!-- Required meta tags -->
     @include('Admin.css')
     <style type="text/css">
-
         .title_deg
         {
             text-align:center;
@@ -40,21 +39,23 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <h1 class="title_deg">All Order</h1>
-
+            <h1 class="title_deg">All Orders</h1>
+            
         <table class="table_deg">
 
             <tr class="th_deg">
                 <th style="padding:10px;">Name</th>
                 <th style="padding:10px;">Email</th>
                 <th style="padding:10px;">Address</th>
-                <th style="padding:10px;">product title</th>
+                <th style="padding:10px;">Phone</th>
+                <th style="padding:10px;">Product_title</th>
                 <th style="padding:10px;">Quantity</th>
-                <th style="padding:10px;">price</th>
-                <th style="padding:10px;">payment status</th>
-                <th style="padding:10px;">delivery</th>
+                <th style="padding:10px;">Price</th>
+                <th style="padding:10px;">Payment_Status</th>
+                <th style="padding:10px;">Delivery_Status</th>
                 <th style="padding:10px;">Image</th>
-                <th style="padding:10px;">delivered</th>
+                <th style="padding:10px;">Delivered</th>
+
             </tr>
 @foreach($order as $order)
 
@@ -69,7 +70,7 @@
                 <td>{{$order->payment_status}}</td>
                 <td>{{$order->delivery_status}}</td>
                 <td>
-                    <img src="/product/{{$order->image}}">
+                    <img class="img_size"src="/product/{{$order->image}}">
                 </td>
               
                 <td>
