@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Create admin user
         \App\Models\User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
@@ -24,7 +25,12 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        // Seed sizes
+        $this->call([
+            SizeSeeder::class,
         ]);
     }
 }

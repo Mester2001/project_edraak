@@ -10,8 +10,10 @@ use App\Models\product;
 
 use App\Models\order;
 
-use Illuminate\support\Facades\Auth;
-use Log;
+use App\Models\Size;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -20,9 +22,9 @@ class AdminController extends Controller
     {
         if(Auth::id())
         {
-            $data=catagorey::all();
+            $data = catagorey::orderBy('id', 'desc')->paginate(10);
 
-            return view('Admin.catagorey',compact('data'));
+            return view('Admin.catagorey', compact('data'));
            
         }
         else
@@ -39,15 +41,41 @@ class AdminController extends Controller
         $data->catagorey_name=$request->catagorey;
 
         $data->save();
-        return redirect()->back()->with('message','Catagorey Added Successfully');
+        return redirect()->back()->with('success', __('messages.category_added'));
     }
 
 
+    public function create()
+    {
+        return view('admin.categories.create');
+    }
+
+    public function edit_category($id)
+    {
+        $category = Catagorey::findOrFail($id);
+        return view('Admin.catagorey_edit', compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'catagorey_name' => 'required|string|max:255|unique:catagoreys,catagorey_name,' . $id,
+        ]);
+
+        $category = Catagorey::findOrFail($id);
+        $category->update([
+            'catagorey_name' => $request->catagorey_name,
+        ]);
+
+        return redirect()->route('categories.index')
+            ->with('success', __('messages.category_updated'));
+    }
+
     public function delete_catagorey($id)
     {
-        $data=catagorey::find($id);
+        $data = Catagorey::findOrFail($id);
         $data->delete(); 
-        return redirect()->back()->with('message','Catagorey deleted Successfully');
+        return redirect()->back()->with('success', __('messages.category_deleted'));
     }
 
 
@@ -83,7 +111,9 @@ class AdminController extends Controller
                 }
             $product->save();
 
-            return redirect()->back()->with('massage','product Added Successfully');
+        
+
+        return redirect()->back()->with('success', __('messages.product_added'));
         }
 
         public function show_product()

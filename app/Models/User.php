@@ -52,6 +52,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get all of the carts for the user.
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array

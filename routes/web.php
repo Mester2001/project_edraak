@@ -43,11 +43,12 @@ Route::get('/update_product/{id}',[AdminController::class,'update_product']);
 
 Route::post('/update_product_confirm/{id}',[AdminController::class,'update_product_confirm']);
 
-Route::get('/product_details/{id}',[HomeController::class,'product_details']);
+Route::get('/product_details/{id}',[HomeController::class,'product_details'])->name('product.details');
 
 Route::post('/add_cart/{id}',[HomeController::class,'add_cart']);
+ // Close admin middleware group
 
-Route::get('/show_cart',[HomeController::class,'show_cart']);
+Route::get('/show_cart',[HomeController::class,'show_cart'])->name('show_cart');
 
 Route::get('/remove_cart/{id}',[HomeController::class,'remove_cart']);
 
@@ -57,17 +58,22 @@ Route::get('/stripe/{totalprice}',[HomeController::class,'stripe']);
 
 Route::post('stripe/{totalprice}',[HomeController::class, 'stripePost'])->name('stripe.post');
 
-Route::get('/show_order',[HomeController::class,'show_order']);
+Route::get('/show_order',[HomeController::class,'show_order'])->name('show_order');
 
 Route::get('/order',[AdminController::class,'order']);
 
 Route::get('/delivered/{id}',[AdminController::class,'delivered']);
 
+Route::get('/delivered/{id}',[HomeController::class,'delivered']);
+
 Route::get('/cancel_order/{id}',[HomeController::class,'cancel_order']);
 
-Route::get('/product_search',[HomeController::class,'product_search']);
+Route::get('/product_search',[HomeController::class,'product_search'])->name('product_search');
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/products', [HomeController::class, 'product'])->name('product');

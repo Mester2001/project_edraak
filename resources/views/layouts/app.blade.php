@@ -20,15 +20,50 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div id="app">
 
-        <main class="py-4">
+        <main class="min-h-screen">
             @yield('content')
         </main>
+        
+        @include('home.footer')
     </div>
+    
+    @auth
+    <script src="{{ asset('js/cart-counter.js') }}"></script>
+    @endauth
+    
+    <script>
+        // Back to top button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            
+            if (backToTopButton) {
+                // Show/hide back to top button
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.remove('opacity-0', 'invisible');
+                        backToTopButton.classList.add('opacity-100', 'visible');
+                    } else {
+                        backToTopButton.classList.remove('opacity-100', 'visible');
+                        backToTopButton.classList.add('opacity-0', 'invisible');
+                    }
+                });
+                
+                // Smooth scroll to top
+                backToTopButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

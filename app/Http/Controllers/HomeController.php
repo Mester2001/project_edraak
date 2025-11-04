@@ -17,6 +17,12 @@ class HomeController extends Controller
     {   $product=product::paginate(10);
         return view('home.userpage',compact('product'));
     }
+    
+    public function all_products()
+    {
+        $products = Product::paginate(12);
+        return view('home.all_products', compact('products'));
+    }
 
     public function redirect(){
         $usertype=Auth::user()->usertype;
@@ -30,66 +36,69 @@ class HomeController extends Controller
     }
 }
     public function product_details($id)
-{
-    $product=product::find($id);
-    return view ('home.product_details',compact('product'));
-}
-
-public function add_cart(Request $request,$id)
-{
-    if(Auth::id()) {
-
-    $user=Auth::user();
-    $product=product::find($id);
-    $cart=new cart;
-    $cart->name=$user->name;
-    $cart->email=$user->email;
-    $cart->phone=$user->phone;
-    $cart->address=$user->address;
-    $cart->user_id=$user->id;
-    $cart->product_title=$product->title;
-
-if($product->dicsount_price!=null)
-{
-    $cart->price=$product->discount_price * $request->quantity;
-}
-else
-{
-    $cart->price=$product->price *$request->quantity;
-}
-    $cart->image=$product->image;
-    $cart->product_id=$product->id;
-
-    $cart->quantity=$request->quantity;
-    $cart->save();
-    return redirect()->back();
-
-{
-}
-
-    return redirect('login');
-
-    }
-}
-
-public function show_cart()
-{
-    if(Auth::id())
     {
+        $product = Product::with('sizes')->findOrFail($id);
+        return view('home.product_details', compact('product'));
+    }
+
+    public function add_cart(Request $request, $id)
+    {
+        if (!Auth::id()) {
+            return redirect('login');
+        }
+
+        $user = Auth::user();
+        $product = Product::findOrFail($id);
         
-    
-    $id=Auth::user()->id;
-    $cart=cart::where('user_id','=',$id)->get();
-    return view('home.showcart',compact('cart'));
-}
+        // Validate request
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
 
-else
-{
+        // Check if product already in cart
+        $existingCart = Cart::where('user_id', $user->id)
+            ->where('product_id', $product->id)
+            ->first();
 
-return redirect('login');
+        if ($existingCart) {
+            // Update existing cart item
+            $newQuantity = $existingCart->quantity + $request->quantity;
+            $existingCart->update([
+                'quantity' => $newQuantity,
+                'price' => ($product->discount_price ?? $product->price) * $newQuantity
+            ]);
+        } else {
+            // Create new cart item
+            $cart = new Cart();
+            $cart->name = $user->name;
+            $cart->email = $user->email;
+            $cart->phone = $user->phone;
+            $cart->address = $user->address;
+            $cart->user_id = $user->id;
+            $cart->product_title = $product->title;
+            $cart->price = ($product->discount_price ?? $product->price) * $request->quantity;
+            $cart->image = $product->image;
+            $cart->product_id = $product->id;
+            $cart->quantity = $request->quantity;
+            
+          
+            
+            $cart->save();
+        }
 
-}
-}
+        return redirect()->back()->with('success', 'Product added to cart');
+    }
+
+    public function show_cart()
+    {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
+
+        $id = Auth::user()->id;
+        $cart = Cart::where('user_id', $id)->get();
+        return view('home.showcart', compact('cart'));
+    }
 public function remove_cart($id)
 {
     $cart=cart::find($id);

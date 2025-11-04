@@ -96,6 +96,12 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            @if(Auth::user()->usertype == '1')
+                            <x-jet-dropdown-link href="{{ route('admin.dashboard') }}">
+                                {{ __('لوحة التحكم') }}
+                            </x-jet-dropdown-link>
+                            @endif
+                            
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>

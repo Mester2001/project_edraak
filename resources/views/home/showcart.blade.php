@@ -22,34 +22,73 @@
       <link href="home/css/responsive.css" rel="stylesheet" />
 
       <style type="text/css">
-
-        .center{
+        .center {
             margin: auto;
-            width: 70%;
-            text-align: center;
-            padding: 30px;
-
+            width: 90%;
+            max-width: 1200px;
+            padding: 30px 0;
         }
-        table,th,td
-        {
-            border: 1px solid grey;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
-        .th_deg
-        {
-            font-size: 30px;
-            padding: 5px;
-            background: skyblue;
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
-        .img_deg{
-            height: 200px;
-            width: 200px;
+        th {
+            background-color: #4f46e5;
+            color: white;
+            font-weight: 600;
         }
-        .total_deg{
-            font-size: 20px;
-            padding: 40px;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
-        </style>
-
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .img_deg {
+            height: 80px;
+            width: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .total_deg {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 20px 0;
+        }
+        .btn-danger {
+            background-color: #ef4444;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+      </style>
 
    </head>
    <body>
@@ -75,11 +114,12 @@
 
             <table>
                 <tr>
-                    <th class="th_deg"> product title </th>
-                    <th class="th_deg"> product quantity </th>
-                    <th class="th_deg"> price </th>
-                    <th class="th_deg"> Image </th>
-                    <th class="th_deg"> Action </th>
+                    <th class="th_deg">Product</th>
+                    <th class="th_deg">Size</th>
+                    <th class="th_deg">Quantity</th>
+                    <th class="th_deg">Price</th>
+                    <th class="th_deg">Image</th>
+                    <th class="th_deg">Action</th>
                 </tr>
                 <?php $totalprice=0; ?>
                 
@@ -87,28 +127,30 @@
 
                 <tr>
                     <td>{{$cart->product_title}}</td>
+                    <td>{{$cart->size_name ?? 'N/A'}}</td>
                     <td>{{$cart->quantity}}</td>
-                    <td>{{$cart->price}}</td>
-                    <td><img class="img_deg" src="/product/{{$cart->image}}"></td>
+                    <td>${{number_format($cart->price, 2)}}</td>
+                    <td><img class="img_deg" src="/product/{{$cart->image}}" alt="{{$cart->product_title}}"></td>
                     <td>
-                        <a class="btn btn-danger" onclick="return confirm('Are You Suare to remove this product ?')"
-                         href="{{url('/remove_cart',$cart->id)}}">Remove product</a>
-                     </td>
-
+                        <a class="btn btn-danger" 
+                           onclick="return confirm('Are you sure you want to remove this item?')"
+                           href="{{url('/remove_cart', $cart->id)}}">
+                            <i class="fa fa-trash"></i> Remove
+                        </a>
+                    </td>
                 </tr>
                     <?php $totalprice = $totalprice + $cart->price ?>
                     @endforeach
 
                  
             </table>
-            <div>
-            <h1 class="total_deg">Total Price : ${{$totalprice}}</h1>
+            <div class="mt-4">
+                <h1 class="total_deg">Total Price: ${{number_format($totalprice, 2)}}</h1>
             </div>
             <div>
                 <h1 style="font-size: 25px; padding-bottom:15px; ">product to order</h1>
                 <a href="{{url('cash_order')}}" class="btn btn-danger">Cash On Delivery</a>
-
-                <a href="{{url('stripe',$totalprice)}}" class="btn btn-danger">pay Using Cart</a>
+                <a href="{{url('stripe',$totalprice)}}" class="btn btn-primary">Pay Using Card</a>
 
 
 
